@@ -1,10 +1,7 @@
 'use strict';
 
-var _ = require('lodash');
 var React = require('react');
 var ReactNative = require('react-native');
-
-var logError = require('logError');
 
 var {
   ActivityIndicatorIOS,
@@ -108,7 +105,7 @@ var CameraRollPicker = React.createClass({
     }
 
     CameraRoll.getPhotos(fetchParams)
-      .then((data) => this._appendImages(data), (e) => logError(e));
+      .then((data) => this._appendImages(data), (e) => console.log(e));
   },
 
   _appendImages: function(data) {
@@ -136,7 +133,7 @@ var CameraRollPicker = React.createClass({
   _selectImage: function(uri) {
     var selected = this.state.selected;
 
-    var index = _.indexOf(selected, uri);
+    var index = selected.indexOf(uri);
 
     if (index >= 0) {
       selected.splice(index, 1);
@@ -187,7 +184,7 @@ var CameraRollPicker = React.createClass({
                     style={[ styles.image, { width: this._imageSize, height: this._imageSize, }, ]}
                     source={{ uri: image.uri }} />
                   {
-                    _.indexOf(this.state.selected, image.uri) >= 0 ?
+                    this.state.sele.indexOf(this.state.selected, image.uri) >= 0 ?
                     <Image
                       style={[ styles.checkIcon, { width: 25, height: 25, }, ]}
                       source={require('./circle-check.png')}
