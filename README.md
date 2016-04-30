@@ -4,14 +4,14 @@ CameraRoll Picker component for React native
 <a href="https://raw.githubusercontent.com/jeanpan/react-native-camera-roll-picker/master/demo/demo.gif"><img src="https://raw.githubusercontent.com/jeanpan/react-native-camera-roll-picker/master/demo/demo.gif" width="350"></a>
 
 ##Add to Project
-Make sure have imported node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj by following the [libraries linking instructions](https://facebook.github.io/react-native/docs/linking-libraries-ios.html).
+1. Make sure node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj has been imported to project libraries by following the [libraries linking instructions](https://facebook.github.io/react-native/docs/linking-libraries-ios.html).
 
-Install component through npm
+2. Install component through npm
 ```
 $ npm install react-native-camera-roll-picker --save
 ```
 
-Require component
+3. Require component
 ```
 var CameraRollPicker = require('react-native-camera-roll-picker');
 ```
