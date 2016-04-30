@@ -184,7 +184,7 @@ var CameraRollPicker = React.createClass({
                     style={[ styles.image, { width: this._imageSize, height: this._imageSize, }, ]}
                     source={{ uri: image.uri }} />
                   {
-                    this.state.sele.indexOf(this.state.selected, image.uri) >= 0 ?
+                    this.state.selected.indexOf(image.uri) >= 0 ?
                     <Image
                       style={[ styles.checkIcon, { width: 25, height: 25, }, ]}
                       source={require('./circle-check.png')}
