@@ -1,6 +1,8 @@
 # react-native-camera-roll-picker
 CameraRoll Picker component for React native
 
+<a href="https://raw.githubusercontent.com/jeanpan/react-native-camera-roll-picker/master/demo/demo.gif"><img src="https://raw.githubusercontent.com/jeanpan/react-native-camera-roll-picker/master/demo/demo.gif" width="350"></a>
+
 ##Add to Project
 
 Install component through npm
