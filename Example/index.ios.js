@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, {
   AppRegistry,
   Component,
@@ -12,7 +6,7 @@ import React, {
   View
 } from 'react-native';
 
-import CameraRollPicker from './CameraRollPicker';
+import CameraRollPicker from 'react-native-camera-roll-picker';
 
 class Example extends Component {
   render() {
@@ -26,18 +20,7 @@ class Example extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     flex: 1,
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
 });
 
