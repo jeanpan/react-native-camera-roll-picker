@@ -8,7 +8,7 @@
   "dependencies": {
     "react": "^0.14.8",
     "react-native": "^0.24.1",
-    "react-native-camera-roll-picker": "^1.0.2",
+    "react-native-camera-roll-picker": "^1.0.3",
     "react-native-checkbox": "^1.0.8"
   }
 }
