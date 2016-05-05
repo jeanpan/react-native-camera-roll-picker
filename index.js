@@ -4,14 +4,11 @@ var React = require('react');
 var ReactNative = require('react-native');
 
 var {
-  ActivityIndicatorIOS,
   CameraRoll,
   Image,
   Platform,
   StyleSheet,
   View,
-  Text,
-  Image,
   TouchableOpacity,
   ScrollView,
   Dimensions,
@@ -44,6 +41,8 @@ var CameraRollPicker = React.createClass({
     imageMargin: React.PropTypes.number,
 
     callback: React.PropTypes.func,
+
+    selectMulti: React.PropTypes.bool,
   },
 
   getDefaultProps: function() {
@@ -57,6 +56,7 @@ var CameraRollPicker = React.createClass({
       callback: function(d) {
         console.log(d);
       },
+      selectMulti: true,
     };
   },
 
@@ -135,12 +135,20 @@ var CameraRollPicker = React.createClass({
 
     var index = selected.indexOf(uri);
 
-    if (index >= 0) {
-      selected.splice(index, 1);
-    } else {
-      if (selected.length < this.props.maximum) {
-        selected.push(uri);
+    var isSelectedMulti = this.props.selectMulti;
+    
+    if(isSelectedMulti) {
+      var index = selected.indexOf(uri);
+
+      if (index >= 0) {
+        selected.splice(index, 1);
+      } else {
+        if (selected.length < this.props.maximum) {
+          selected.push(uri);
+        }
       }
+    }else{
+      selected = [uri]
     }
 
     this.setState({
