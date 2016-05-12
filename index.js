@@ -110,7 +110,6 @@ var CameraRollPicker = React.createClass({
 
   _appendImages: function(data) {
     var assets = data.edges;
-    console.log('===>',data)
     var images = assets.map((asset) => asset.node.image);
 
     this.setState({
