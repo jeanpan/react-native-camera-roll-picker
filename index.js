@@ -110,7 +110,8 @@ var CameraRollPicker = React.createClass({
 
   _appendImages: function(data) {
     var assets = data.edges;
-    var images = assets.map((asset) => asset.node.image);
+    // android will return image which width and height = -1;
+    var images = assets.map((asset) => asset.node.image).filter(image => image.width > 0 && image.height >0);
 
     this.setState({
       loadingMore: false,
