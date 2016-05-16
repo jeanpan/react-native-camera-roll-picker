@@ -110,7 +110,8 @@ var CameraRollPicker = React.createClass({
 
   _appendImages: function(data) {
     var assets = data.edges;
-    var images = assets.map((asset) => asset.node.image);
+    // android will return image which width and height = -1;
+    var images = assets.map((asset) => asset.node.image).filter(image => image.width > 0 && image.height >0);
 
     this.setState({
       loadingMore: false,
@@ -130,16 +131,16 @@ var CameraRollPicker = React.createClass({
     }
   },
 
-  _selectImage: function(uri) {
+  _selectImage: function(image) {
     var selected = this.state.selected;
 
-    var index = selected.indexOf(uri);
+    var index = selected.indexOf(image);
 
     if (index >= 0) {
       selected.splice(index, 1);
     } else {
       if (selected.length < this.props.maximum) {
-        selected.push(uri);
+        selected.push(image);
       }
     }
 
@@ -179,12 +180,12 @@ var CameraRollPicker = React.createClass({
                 <TouchableOpacity
                   key={image.uri}
                   style={{ position: 'relative', marginBottom: this.props.imageMargin, }}
-                  onPress={this._selectImage.bind(null, image.uri)}>
+                  onPress={this._selectImage.bind(null, image)}>
                   <Image
                     style={[ styles.image, { width: this._imageSize, height: this._imageSize, }, ]}
                     source={{ uri: image.uri }} />
                   {
-                    this.state.selected.indexOf(image.uri) >= 0 ?
+                    this.state.selected.indexOf(image) >= 0 ?
                     <Image
                       style={[ styles.checkIcon, { width: 25, height: 25, }, ]}
                       source={require('./circle-check.png')}
