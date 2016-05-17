@@ -170,24 +170,27 @@ var CameraRollPicker = React.createClass({
   },
 
   render: function() {
+    var imageMargin = this.props.imageMargin,
+        imageSize = this._imageSize;
+
     return (
       <ScrollView
         style={styles.container}
         onScroll={this.handleScroll} scrollEventThrottle={16}>
-        <View style={[ styles.imageContainer, { padding: this.props.imageMargin, }, ]}>
+        <View style={[ styles.imageContainer, { padding: imageMargin, paddingRight: 0, }, ]}>
           { this.state.images.map((image) => {
               return (
                 <TouchableOpacity
                   key={image.uri}
-                  style={{ position: 'relative', marginBottom: this.props.imageMargin, }}
-                  onPress={this._selectImage.bind(null, image)}>
+                  style={{ position: 'relative', marginBottom: imageMargin, }}
+                  onPress={this._selectImage.bind(null, image.uri)}>
                   <Image
-                    style={[ styles.image, { width: this._imageSize, height: this._imageSize, }, ]}
+                    style={{ width: imageSize, height: imageSize, marginRight: imageMargin, }}
                     source={{ uri: image.uri }} />
                   {
-                    this.state.selected.indexOf(image) >= 0 ?
+                    this.state.selected.indexOf(image.uri) >= 0 ?
                     <Image
-                      style={[ styles.checkIcon, { width: 25, height: 25, }, ]}
+                      style={[ styles.checkIcon, { width: 25, height: 25, right: imageMargin + 5 }, ]}
                       source={require('./circle-check.png')}
                     />
                     :
@@ -212,12 +215,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
   },
   checkIcon: {
     position: 'absolute',
     top: 5,
-    right: 5,
     backgroundColor: 'transparent',
   },
 });
