@@ -53,6 +53,7 @@ var CameraRollPicker = React.createClass({
       maximum: 15,
       imagesPerRow: 3,
       imageMargin: 5,
+      selectedMarker: null,
       assetType: 'Photos',
       callback: function(d) {
         console.log(d);
@@ -171,7 +172,15 @@ var CameraRollPicker = React.createClass({
 
   render: function() {
     var imageMargin = this.props.imageMargin,
-        imageSize = this._imageSize;
+        imageSize = this._imageSize,
+        selectedMarker = this.props.selectedMarker
+                          ?
+                          this.props.selectedMarker
+                          :
+                          <Image
+                            style={[ styles.checkIcon, { width: 25, height: 25, right: imageMargin + 5 }, ]}
+                            source={require('./circle-check.png')}
+                          />;
 
     return (
       <ScrollView
@@ -186,16 +195,16 @@ var CameraRollPicker = React.createClass({
                   onPress={this._selectImage.bind(null, image.uri)}>
                   <Image
                     style={{ width: imageSize, height: imageSize, marginRight: imageMargin, }}
-                    source={{ uri: image.uri }} />
-                  {
-                    this.state.selected.indexOf(image.uri) >= 0 ?
-                    <Image
-                      style={[ styles.checkIcon, { width: 25, height: 25, right: imageMargin + 5 }, ]}
-                      source={require('./circle-check.png')}
-                    />
-                    :
-                    null
-                  }
+                    source={{ uri: image.uri }}
+                  >
+                    {
+                      this.state.selected.indexOf(image.uri) >= 0
+                      ?
+                      selectedMarker
+                      :
+                      null
+                    }
+                  </Image>
                 </TouchableOpacity>
               );
             })
