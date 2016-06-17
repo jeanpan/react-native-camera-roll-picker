@@ -30,6 +30,7 @@ var CameraRollPicker = require('react-native-camera-roll-picker');
 - `maximum` : Maximum number of selected images. Default is *15*
 - `imagesPerRow` : Number of images per row. Default is *3*
 - `imageMargin` : Margin size of one image. Default is *5*
+- `selectedMarker` : Custom selected image marker component. Default is checkmark.
 
 ##Run Example
 ```
