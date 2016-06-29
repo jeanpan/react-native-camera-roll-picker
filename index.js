@@ -11,7 +11,6 @@ var {
   StyleSheet,
   View,
   Text,
-  Image,
   TouchableOpacity,
   ScrollView,
   Dimensions,
