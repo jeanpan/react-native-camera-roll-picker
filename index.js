@@ -4,13 +4,13 @@ var React = require('react');
 var ReactNative = require('react-native');
 
 var {
-  ActivityIndicatorIOS,
   CameraRoll,
   Image,
   Platform,
   StyleSheet,
   View,
   Text,
+  Image,
   TouchableOpacity,
   ScrollView,
   Dimensions,
