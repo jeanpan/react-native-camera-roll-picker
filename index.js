@@ -1,75 +1,29 @@
-'use strict';
+import React,{Component} from 'react'
+import {
+  CameraRoll
+  ,Image
+  ,Platform
+  ,StyleSheet
+  ,View
+  ,Text
+  ,TouchableOpacity
+  ,ScrollView
+  ,Dimensions
+} from 'react-native'
 
-var React = require('react');
-var ReactNative = require('react-native');
-
-var {
-  CameraRoll,
-  Image,
-  Platform,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Dimensions,
-} = ReactNative;
-
-var CameraRollPicker = React.createClass({
-  propTypes: {
-    groupTypes: React.PropTypes.oneOf([
-      'Album',
-      'All',
-      'Event',
-      'Faces',
-      'Library',
-      'PhotoStream',
-      'SavedPhotos',
-    ]),
-
-    batchSize: React.PropTypes.number,
-
-    maximum: React.PropTypes.number,
-
-    assetType: React.PropTypes.oneOf([
-      'Photos',
-      'Videos',
-      'All',
-    ]),
-
-    imagesPerRow: React.PropTypes.number,
-
-    imageMargin: React.PropTypes.number,
-
-    callback: React.PropTypes.func,
-  },
-
-  getDefaultProps: function() {
-    return {
-      groupTypes: 'SavedPhotos',
-      batchSize: 30,
-      maximum: 15,
-      imagesPerRow: 3,
-      imageMargin: 5,
-      selectedMarker: null,
-      assetType: 'Photos',
-      callback: function(d) {
-        console.log(d);
-      },
-    };
-  },
-
-  getInitialState: function() {
-    return {
+class CameraRollPicker extends Component{
+  constructor(props) {
+    super(props);
+  
+    this.state = {
       images: [],
       selected: [],
       lastCursor: null,
       loadingMore: false,
       noMore: false,
     };
-  },
-
-  componentDidMount: function() {
+  }
+  componentDidMount() {
     var { width } = Dimensions.get('window');
 
     var imageMargin = this.props.imageMargin,
@@ -78,15 +32,15 @@ var CameraRollPicker = React.createClass({
     this._imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
 
     this.fetch();
-  },
+  }
 
-  fetch: function() {
+  fetch() {
     if (!this.state.loadingMore) {
       this.setState({ loadingMore: true }, () => { this._fetch(); });
     }
-  },
+  }
 
-  _fetch: function() {
+  _fetch() {
 
     var fetchParams = {
       first: this.props.batchSize,
@@ -105,9 +59,9 @@ var CameraRollPicker = React.createClass({
 
     CameraRoll.getPhotos(fetchParams)
       .then((data) => this._appendImages(data), (e) => console.log(e));
-  },
+  }
 
-  _appendImages: function(data) {
+  _appendImages(data) {
     var assets = data.edges;
     // android will return image which width and height = -1;
     var images = assets.map((asset) => asset.node.image).filter(image => image.width > 0 && image.height > 0);
@@ -128,9 +82,9 @@ var CameraRollPicker = React.createClass({
         images: this.state.images.concat(images),
       })
     }
-  },
+  }
 
-  _selectImage: function(image) {
+  _selectImage(image) {
     var selected = this.state.selected;
 
     var index = selected.indexOf(image);
@@ -148,15 +102,15 @@ var CameraRollPicker = React.createClass({
     });
 
     this.props.callback(this.state.selected);
-  },
+  }
 
-  _onEndReached: function() {
+  _onEndReached() {
     if (!this.state.noMore) {
       this.fetch();
     }
-  },
+  }
 
-  handleScroll: function(event) {
+  handleScroll(event) {
     var layoutHeight = event.nativeEvent.layoutMeasurement.height,
         imageHeight = this._imageSize + this.props.imageMargin * 2,
         imagesPerScreen = Math.ceil(layoutHeight / imageHeight) * this.props.imagesPerRow,
@@ -166,9 +120,9 @@ var CameraRollPicker = React.createClass({
     if (currentScrollViewHeight > loadMoreScrollHeight) {
       this._onEndReached();
     }
-  },
+  }
 
-  render: function() {
+  render(){
     var imageMargin = this.props.imageMargin,
         imageSize = this._imageSize,
         selectedMarker = this.props.selectedMarker
@@ -210,8 +164,42 @@ var CameraRollPicker = React.createClass({
         </View>
       </ScrollView>
     );
+  }
+}
+
+CameraRollPicker.propTypes = {
+  groupTypes: React.PropTypes.oneOf([
+    'Album',
+    'All',
+    'Event',
+    'Faces',
+    'Library',
+    'PhotoStream',
+    'SavedPhotos',
+  ]),
+  batchSize: React.PropTypes.number,
+  maximum: React.PropTypes.number,
+  assetType: React.PropTypes.oneOf([
+    'Photos',
+    'Videos',
+    'All',
+  ]),
+  imagesPerRow: React.PropTypes.number,
+  imageMargin: React.PropTypes.number,
+  callback: React.PropTypes.func,
+}
+CameraRollPicker.defaultProps = {
+  groupTypes: 'SavedPhotos',
+  batchSize: 30,
+  maximum: 15,
+  imagesPerRow: 3,
+  imageMargin: 5,
+  selectedMarker: null,
+  assetType: 'Photos',
+  callback: function(d) {
+    console.log(d);
   },
-});
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -230,4 +218,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = CameraRollPicker;
+export default CameraRollPicker;
