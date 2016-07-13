@@ -46,7 +46,6 @@ class CameraRollPicker extends Component{
         }
         //cloneWithRows
         this.setState({dataSource: this.state.dataSource.cloneWithRows(rows)})
-        console.log()
       });
   }
 
@@ -61,7 +60,6 @@ class CameraRollPicker extends Component{
       if (selected.length < this.props.maximum) selected.push(image);
       else selected = [image];
     }
-
     this.setState({ selected: selected });
     this.props.callback(this.state.selected);
   }
@@ -77,7 +75,6 @@ class CameraRollPicker extends Component{
     );
   }
   renderRow(data){
-    console.log(data);
     var selectedMarker = this.props.selectedMarker ?
                           this.props.selectedMarker
                           :
