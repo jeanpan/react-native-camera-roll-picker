@@ -46,24 +46,18 @@ class CameraRollPicker extends Component{
 
   _selectImage(image) {
     var selected = this.state.selected;
-
     var index = selected.indexOf(image);
 
     if (index >= 0) {
       selected.splice(index, 1);
     } else {
-      if (selected.length < this.props.maximum) {
-        selected.push(image);
-      }
+      if (selected.length < this.props.maximum) selected.push(image);
+      else selected = [image];
     }
 
-    this.setState({
-      selected: selected,
-    });
-
+    this.setState({ selected: selected });
     this.props.callback(this.state.selected);
   }
-
   render(){
     return (
       <View style={[ styles.wrapper, { padding: this.props.imageMargin, paddingRight: 0, backgroundColor: this.props.backgroundColor}, ]}>
@@ -85,7 +79,8 @@ class CameraRollPicker extends Component{
                           />
     return(
       <TouchableOpacity 
-        style={{marginBottom: this.props.imageMargin, marginRight: this.props.imageMargin}}>
+        style={{marginBottom: this.props.imageMargin, marginRight: this.props.imageMargin}}
+        onPress={event => this._selectImage(data.node.image.uri)}>
         <Image 
           source={{uri: data.node.image.uri}} 
           style={{height: this.imageSize, width: this.imageSize}} >
@@ -138,7 +133,7 @@ CameraRollPicker.propTypes = {
 }
 CameraRollPicker.defaultProps = {
   groupTypes: 'SavedPhotos',
-  maximum: 15,
+  maximum: 1,
   imagesPerRow: 3,
   imageMargin: 5,
   selectedMarker: null,
