@@ -39,7 +39,14 @@ class CameraRollPicker extends Component{
 
     CameraRoll.getPhotos(fetchParams)
       .then((data) => {
-        this.setState({dataSource: this.state.dataSource.cloneWithRows(data.edges)})
+        //split to rows
+        var rows=[];
+        while (data.edges.length > 0){
+            rows.push(data.edges.splice(0,this.props.imagesPerRow));
+        }
+        //cloneWithRows
+        this.setState({dataSource: this.state.dataSource.cloneWithRows(rows)})
+        console.log()
       });
   }
 
@@ -61,7 +68,7 @@ class CameraRollPicker extends Component{
   render(){
     return (
       <View style={[ styles.wrapper, { padding: this.props.imageMargin, paddingRight: 0, backgroundColor: this.props.backgroundColor}, ]}>
-        <SGListView
+        <ListView
           style={styles.list}
           contentContainerStyle={styles.listContainer}
           dataSource={this.state.dataSource}
@@ -70,6 +77,7 @@ class CameraRollPicker extends Component{
     );
   }
   renderRow(data){
+    console.log(data);
     var selectedMarker = this.props.selectedMarker ?
                           this.props.selectedMarker
                           :
@@ -77,30 +85,40 @@ class CameraRollPicker extends Component{
                             style={[ styles.checkIcon, { width: 25, height: 25, right: this.props.imageMargin + 5 }, ]}
                             source={require('./circle-check.png')}
                           />
+
+    var items=[];
+    data.forEach(item =>{
+      items.push(
+        <TouchableOpacity 
+          style={{marginBottom: this.props.imageMargin, marginRight: this.props.imageMargin}}
+          onPress={event => this._selectImage(item.node.image.uri)}>
+          <Image 
+            source={{uri: item.node.image.uri}} 
+            style={{height: this.imageSize, width: this.imageSize}} >
+
+            { (this.state.selected.indexOf(item.node.image.uri) >= 0)? selectedMarker : null }
+
+          </Image>
+        </TouchableOpacity>
+      )
+    })
     return(
-      <TouchableOpacity 
-        style={{marginBottom: this.props.imageMargin, marginRight: this.props.imageMargin}}
-        onPress={event => this._selectImage(data.node.image.uri)}>
-        <Image 
-          source={{uri: data.node.image.uri}} 
-          style={{height: this.imageSize, width: this.imageSize}} >
-
-          { (this.state.selected.indexOf(data.node.image.uri) >= 0)? selectedMarker : null }
-
-        </Image>
-      </TouchableOpacity>
+      <View style={styles.row}>
+        {items}
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
+  wrapper:{
     flex: 1,
   },
   listContainer: {
+    flexDirection: 'column',
+  },
+  row:{
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
   },
   checkIcon: {
     position: 'absolute',
@@ -133,10 +151,9 @@ CameraRollPicker.propTypes = {
 }
 CameraRollPicker.defaultProps = {
   groupTypes: 'SavedPhotos',
-  maximum: 1,
+  maximum: 15,
   imagesPerRow: 3,
   imageMargin: 5,
-  selectedMarker: null,
   assetType: 'Photos',
   backgroundColor: 'white',
   callback: function(d) {
