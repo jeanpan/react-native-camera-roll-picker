@@ -25,11 +25,11 @@ class CameraRollPicker extends Component{
   }
   componentWillMount() {
     var { width } = Dimensions.get('window');
-    this.imageSize = ((width - (this.props.imagesPerRow+2) * this.props.imageMargin) / this.props.imagesPerRow);
+    this.imageSize = ((width - (this.props.imagesPerRow+1) * this.props.imageMargin) / this.props.imagesPerRow);
 
     //Fetch
     var fetchParams = {
-      first: this.props.batchSize,
+      first: 1000,
       groupTypes: this.props.groupTypes,
       assetType: this.props.assetType,
     };
@@ -66,7 +66,7 @@ class CameraRollPicker extends Component{
 
   render(){
     return (
-      <View style={[ styles.wrapper, { padding: this.props.imageMargin, paddingRight: 0, }, ]}>
+      <View style={[ styles.wrapper, { padding: this.props.imageMargin, paddingRight: 0, backgroundColor: this.props.backgroundColor}, ]}>
         <SGListView
           style={styles.list}
           contentContainerStyle={styles.listContainer}
@@ -100,15 +100,12 @@ class CameraRollPicker extends Component{
 
 const styles = StyleSheet.create({
   wrapper: {
-    borderWidth: 1,
-    borderColor: 'black',
     flex: 1,
   },
   listContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-    backgroundColor: '#fff',
   },
   checkIcon: {
     position: 'absolute',
@@ -137,6 +134,7 @@ CameraRollPicker.propTypes = {
   imageMargin: React.PropTypes.number,
   callback: React.PropTypes.func,
   selectedMarker: React.PropTypes.element,
+  backgroundColor: React.PropTypes.string,
 }
 CameraRollPicker.defaultProps = {
   groupTypes: 'SavedPhotos',
@@ -145,6 +143,7 @@ CameraRollPicker.defaultProps = {
   imageMargin: 5,
   selectedMarker: null,
   assetType: 'Photos',
+  backgroundColor: 'white',
   callback: function(d) {
     console.log(d);
   },
