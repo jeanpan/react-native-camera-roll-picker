@@ -127,7 +127,6 @@ CameraRollPicker.propTypes = {
     'PhotoStream',
     'SavedPhotos',
   ]),
-  batchSize: React.PropTypes.number,
   maximum: React.PropTypes.number,
   assetType: React.PropTypes.oneOf([
     'Photos',
@@ -137,10 +136,10 @@ CameraRollPicker.propTypes = {
   imagesPerRow: React.PropTypes.number,
   imageMargin: React.PropTypes.number,
   callback: React.PropTypes.func,
+  selectedMarker: React.PropTypes.element,
 }
 CameraRollPicker.defaultProps = {
   groupTypes: 'SavedPhotos',
-  batchSize: 30,
   maximum: 15,
   imagesPerRow: 3,
   imageMargin: 5,
