@@ -66,7 +66,7 @@ class CameraRollPicker extends Component{
   render(){
     return (
       <View style={[ styles.wrapper, { padding: this.props.imageMargin, paddingRight: 0, backgroundColor: this.props.backgroundColor}, ]}>
-        <ListView
+        <SGListView
           style={styles.list}
           contentContainerStyle={styles.listContainer}
           dataSource={this.state.dataSource}
