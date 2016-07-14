@@ -190,13 +190,13 @@ var CameraRollPicker = React.createClass({
                 <TouchableOpacity
                   key={image.uri}
                   style={{ position: 'relative', marginBottom: imageMargin, }}
-                  onPress={this._selectImage.bind(null, image.uri)}>
+                  onPress={this._selectImage.bind(null, image)}>
                   <Image
                     style={{ width: imageSize, height: imageSize, marginRight: imageMargin, }}
                     source={{ uri: image.uri }}
                   >
                     {
-                      this.state.selected.indexOf(image.uri) >= 0
+                      this.state.selected.findIndex(selected => selected.uri === image.uri) >= 0
                       ?
                       selectedMarker
                       :
