@@ -1,233 +1,161 @@
-'use strict';
+import React,{Component} from 'react'
+import {
+  CameraRoll
+  ,Image
+  ,Platform
+  ,StyleSheet
+  ,View
+  ,Text
+  ,Dimensions
+  ,TouchableOpacity
+  ,ListView
+} from 'react-native'
 
-var React = require('react');
-var ReactNative = require('react-native');
+import SGListView from 'react-native-sglistview'
 
-var {
-  CameraRoll,
-  Image,
-  Platform,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Dimensions,
-} = ReactNative;
-
-var CameraRollPicker = React.createClass({
-  propTypes: {
-    groupTypes: React.PropTypes.oneOf([
-      'Album',
-      'All',
-      'Event',
-      'Faces',
-      'Library',
-      'PhotoStream',
-      'SavedPhotos',
-    ]),
-
-    batchSize: React.PropTypes.number,
-
-    maximum: React.PropTypes.number,
-
-    assetType: React.PropTypes.oneOf([
-      'Photos',
-      'Videos',
-      'All',
-    ]),
-
-    imagesPerRow: React.PropTypes.number,
-
-    imageMargin: React.PropTypes.number,
-
-    callback: React.PropTypes.func,
-  },
-
-  getDefaultProps: function() {
-    return {
-      groupTypes: 'SavedPhotos',
-      batchSize: 30,
-      maximum: 15,
-      imagesPerRow: 3,
-      imageMargin: 5,
-      selectedMarker: null,
-      assetType: 'Photos',
-      callback: function(d) {
-        console.log(d);
-      },
-    };
-  },
-
-  getInitialState: function() {
-    return {
+class CameraRollPicker extends Component{
+  constructor(props) {
+    super(props);
+  
+    this.state = {
       images: [],
       selected: [],
-      lastCursor: null,
-      loadingMore: false,
-      noMore: false,
+      dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     };
-  },
-
-  componentDidMount: function() {
+  }
+  componentWillMount() {
     var { width } = Dimensions.get('window');
+    this.imageSize = ((width - (this.props.imagesPerRow+1) * this.props.imageMargin) / this.props.imagesPerRow);
 
-    var imageMargin = this.props.imageMargin,
-        imagesPerRow = this.props.imagesPerRow;
-
-    this._imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
-
-    this.fetch();
-  },
-
-  fetch: function() {
-    if (!this.state.loadingMore) {
-      this.setState({ loadingMore: true }, () => { this._fetch(); });
-    }
-  },
-
-  _fetch: function() {
-
+    //Fetch
     var fetchParams = {
-      first: this.props.batchSize,
+      first: 1000,
       groupTypes: this.props.groupTypes,
       assetType: this.props.assetType,
     };
 
-    if (Platform.OS === "android") {
-      // not supported in android
-      delete fetchParams.groupTypes;
-    }
-
-    if (this.state.lastCursor) {
-      fetchParams.after = this.state.lastCursor;
-    }
+    if (Platform.OS === "android") delete fetchParams.groupTypes;
+    if (this.state.lastCursor) fetchParams.after = this.state.lastCursor;
 
     CameraRoll.getPhotos(fetchParams)
-      .then((data) => this._appendImages(data), (e) => console.log(e));
-  },
-
-  _appendImages: function(data) {
-    var assets = data.edges;
-    // android will return image which width and height = -1;
-    var images = assets.map((asset) => asset.node.image).filter(image => image.width > 0 && image.height > 0);
-
-    this.setState({
-      loadingMore: false,
-    });
-
-    if (!data.page_info.has_next_page) {
-      this.setState({
-        noMore: true,
+      .then((data) => {
+        //split to rows
+        var rows=[];
+        while (data.edges.length > 0){
+            rows.push(data.edges.splice(0,this.props.imagesPerRow));
+        }
+        //cloneWithRows
+        this.setState({dataSource: this.state.dataSource.cloneWithRows(rows)})
       });
-    }
+  }
 
-    if (assets.length > 0) {
-      this.setState({
-        lastCursor: data.page_info.end_cursor,
-        images: this.state.images.concat(images),
-      })
-    }
-  },
 
-  _selectImage: function(image) {
+  _selectImage(image) {
     var selected = this.state.selected;
-
     var index = selected.indexOf(image);
 
     if (index >= 0) {
       selected.splice(index, 1);
     } else {
-      if (selected.length < this.props.maximum) {
-        selected.push(image);
-      }
+      if (selected.length < this.props.maximum) selected.push(image);
+      else selected = [image];
     }
-
-    this.setState({
-      selected: selected,
-    });
-
+    this.setState({ selected: selected });
     this.props.callback(this.state.selected);
-  },
-
-  _onEndReached: function() {
-    if (!this.state.noMore) {
-      this.fetch();
-    }
-  },
-
-  handleScroll: function(event) {
-    var layoutHeight = event.nativeEvent.layoutMeasurement.height,
-        imageHeight = this._imageSize + this.props.imageMargin * 2,
-        imagesPerScreen = Math.ceil(layoutHeight / imageHeight) * this.props.imagesPerRow,
-        currentScrollViewHeight = event.nativeEvent.contentOffset.y + layoutHeight,
-        loadMoreScrollHeight = (this.props.batchSize / imagesPerScreen) * layoutHeight;
-
-    if (currentScrollViewHeight > loadMoreScrollHeight) {
-      this._onEndReached();
-    }
-  },
-
-  render: function() {
-    var imageMargin = this.props.imageMargin,
-        imageSize = this._imageSize,
-        selectedMarker = this.props.selectedMarker
-                          ?
+  }
+  render(){
+    return (
+      <View style={[ styles.wrapper, { padding: this.props.imageMargin, paddingRight: 0, backgroundColor: this.props.backgroundColor}, ]}>
+        <SGListView
+          style={styles.list}
+          contentContainerStyle={styles.listContainer}
+          dataSource={this.state.dataSource}
+          renderRow={rowData => this.renderRow(rowData)} />
+      </View>
+    );
+  }
+  renderRow(data){
+    var selectedMarker = this.props.selectedMarker ?
                           this.props.selectedMarker
                           :
                           <Image
-                            style={[ styles.checkIcon, { width: 25, height: 25, right: imageMargin + 5 }, ]}
+                            style={[ styles.checkIcon, { width: 25, height: 25, right: this.props.imageMargin + 5 }, ]}
                             source={require('./circle-check.png')}
-                          />;
+                          />
 
-    return (
-      <ScrollView
-        style={styles.container}
-        onScroll={this.handleScroll} scrollEventThrottle={16}>
-        <View style={[ styles.imageContainer, { padding: imageMargin, paddingRight: 0, }, ]}>
-          { this.state.images.map((image) => {
-              return (
-                <TouchableOpacity
-                  key={image.uri}
-                  style={{ position: 'relative', marginBottom: imageMargin, }}
-                  onPress={this._selectImage.bind(null, image.uri)}>
-                  <Image
-                    style={{ width: imageSize, height: imageSize, marginRight: imageMargin, }}
-                    source={{ uri: image.uri }}
-                  >
-                    {
-                      this.state.selected.indexOf(image.uri) >= 0
-                      ?
-                      selectedMarker
-                      :
-                      null
-                    }
-                  </Image>
-                </TouchableOpacity>
-              );
-            })
-          }
-        </View>
-      </ScrollView>
-    );
-  },
-});
+    var items=[];
+    data.forEach(item =>{
+      items.push(
+        <TouchableOpacity 
+          style={{marginBottom: this.props.imageMargin, marginRight: this.props.imageMargin}}
+          onPress={event => this._selectImage(item.node.image.uri)}>
+          <Image 
+            source={{uri: item.node.image.uri}} 
+            style={{height: this.imageSize, width: this.imageSize}} >
+
+            { (this.state.selected.indexOf(item.node.image.uri) >= 0)? selectedMarker : null }
+
+          </Image>
+        </TouchableOpacity>
+      )
+    })
+    return(
+      <View style={styles.row}>
+        {items}
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper:{
     flex: 1,
-    backgroundColor: '#fff',
   },
-  imageContainer: {
-    flex: 1,
+  listContainer: {
+    flexDirection: 'column',
+  },
+  row:{
     flexDirection: 'row',
-    flexWrap: 'wrap',
   },
   checkIcon: {
     position: 'absolute',
     top: 5,
     backgroundColor: 'transparent',
   },
-});
+})
 
-module.exports = CameraRollPicker;
+CameraRollPicker.propTypes = {
+  groupTypes: React.PropTypes.oneOf([
+    'Album',
+    'All',
+    'Event',
+    'Faces',
+    'Library',
+    'PhotoStream',
+    'SavedPhotos',
+  ]),
+  maximum: React.PropTypes.number,
+  assetType: React.PropTypes.oneOf([
+    'Photos',
+    'Videos',
+    'All',
+  ]),
+  imagesPerRow: React.PropTypes.number,
+  imageMargin: React.PropTypes.number,
+  callback: React.PropTypes.func,
+  selectedMarker: React.PropTypes.element,
+  backgroundColor: React.PropTypes.string,
+}
+CameraRollPicker.defaultProps = {
+  groupTypes: 'SavedPhotos',
+  maximum: 15,
+  imagesPerRow: 3,
+  imageMargin: 5,
+  assetType: 'Photos',
+  backgroundColor: 'white',
+  callback: function(d) {
+    console.log(d);
+  },
+}
+
+export default CameraRollPicker;
