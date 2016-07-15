@@ -16,7 +16,7 @@ import SGListView from 'react-native-sglistview'
 class CameraRollPicker extends Component{
   constructor(props) {
     super(props);
-  
+
     this.state = {
       images: [],
       selected: [],
@@ -86,14 +86,14 @@ class CameraRollPicker extends Component{
     var items=[];
     data.forEach(item =>{
       items.push(
-        <TouchableOpacity 
+        <TouchableOpacity
           style={{marginBottom: this.props.imageMargin, marginRight: this.props.imageMargin}}
-          onPress={event => this._selectImage(item.node.image.uri)}>
-          <Image 
-            source={{uri: item.node.image.uri}} 
+          onPress={event => this._selectImage(item.node.image)}>
+          <Image
+            source={{uri: item.node.image.uri}}
             style={{height: this.imageSize, width: this.imageSize}} >
 
-            { (this.state.selected.indexOf(item.node.image.uri) >= 0)? selectedMarker : null }
+            { (this.state.selected.indexOf(item.node.image) >= 0)? selectedMarker : null }
 
           </Image>
         </TouchableOpacity>
