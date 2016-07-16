@@ -20,14 +20,19 @@ class Example extends Component {
 
     this.state = {
       num: 0,
+      selected: [],
     };
   }
 
   getSelectedImages(images) {
     var num = images.length;
+
     this.setState({
       num: num,
+      selected: images,
     });
+
+    console.log(this.state.selected);
   }
 
   render() {
@@ -42,6 +47,7 @@ class Example extends Component {
           groupTypes='SavedPhotos'
           batchSize={5}
           maximum={5}
+          selected={this.state.selected}
           assetType='Photos'
           imagesPerRow={3}
           imageMargin={5}
