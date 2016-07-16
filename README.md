@@ -26,6 +26,7 @@ var CameraRollPicker = require('react-native-camera-roll-picker');
 - `callback` : Callback function when images was selected. (is required!)
 - `groupTypes` : The group where the photos will be fetched, one of 'Album', 'All', 'Event', 'Faces', 'Library', 'PhotoStream' and 'SavedPhotos'. (Default: SavedPhotos)
 - `assetType` : The asset type, one of 'Photos', 'Videos' or 'All'. (Default: Photos)
+- `selected` : Already be selected images array. (Default: [])
 - `maximum` : Maximum number of selected images. (Default: 15)
 - `imagesPerRow` : Number of images per row. (Default: 3)
 - `imageMargin` : Margin size of one image. (Default: 5)
