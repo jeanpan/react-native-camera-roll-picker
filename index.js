@@ -14,7 +14,7 @@ import {
 
 import SGListView from 'react-native-sglistview'
 
-class CameraRollPicker extends Component{
+class CameraRollPicker extends Component {
   constructor(props) {
     super(props);
 
@@ -44,10 +44,10 @@ class CameraRollPicker extends Component{
   }
 
   _fetch() {
-    var {batchSize, groupTypes, assetType} = this.props;
+    var {groupTypes, assetType} = this.props;
 
     var fetchParams = {
-      first: batchSize,
+      first: 1000,
       groupTypes: groupTypes,
       assetType: assetType,
     };
@@ -70,10 +70,6 @@ class CameraRollPicker extends Component{
     var newState = {
       loadingMore: false,
     };
-
-    this.setState({
-      loadingMore: false,
-    });
 
     if (!data.page_info.has_next_page) {
       newState.noMore = true;
@@ -235,7 +231,6 @@ CameraRollPicker.propTypes = {
     'Videos',
     'All',
   ]),
-  batchSize: React.PropTypes.number,
   imagesPerRow: React.PropTypes.number,
   imageMargin: React.PropTypes.number,
   callback: React.PropTypes.func,
@@ -245,7 +240,6 @@ CameraRollPicker.propTypes = {
 
 CameraRollPicker.defaultProps = {
   groupTypes: 'SavedPhotos',
-  batchSize: 10,
   maximum: 15,
   imagesPerRow: 3,
   imageMargin: 5,
