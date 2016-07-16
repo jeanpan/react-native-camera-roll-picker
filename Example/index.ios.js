@@ -1,6 +1,12 @@
-import React, {
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, { Component } from 'react';
+import {
   AppRegistry,
-  Component,
   StyleSheet,
   Text,
   View
@@ -8,22 +14,23 @@ import React, {
 
 import CameraRollPicker from 'react-native-camera-roll-picker';
 
-const Example =  React.createClass ({
-  getInitialState: function() {
-    return {
+class Example extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       num: 0,
     };
-  },
+  }
 
-  getSelectedImages: function(images) {
+  getSelectedImages(images) {
     var num = images.length;
-    // console.log(images);
     this.setState({
       num: num,
     });
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <View style={styles.container}>
         <View style={styles.content}>
@@ -33,16 +40,16 @@ const Example =  React.createClass ({
         </View>
         <CameraRollPicker
           groupTypes='SavedPhotos'
-          batchSize={25}
-          maximum={15}
+          batchSize={5}
+          maximum={5}
           assetType='Photos'
           imagesPerRow={3}
           imageMargin={5}
-          callback={this.getSelectedImages} />
+          callback={this.getSelectedImages.bind(this)} />
       </View>
     );
   }
-});
+}
 
 const styles = StyleSheet.create({
   container: {
