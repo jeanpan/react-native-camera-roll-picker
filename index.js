@@ -20,7 +20,7 @@ class CameraRollPicker extends Component {
 
     this.state = {
       images: [],
-      selected: [],
+      selected: this.props.selected,
       lastCursor: null,
       loadingMore: false,
       noMore: false,
@@ -234,6 +234,7 @@ CameraRollPicker.propTypes = {
   imagesPerRow: React.PropTypes.number,
   imageMargin: React.PropTypes.number,
   callback: React.PropTypes.func,
+  selected: React.PropTypes.array,
   selectedMarker: React.PropTypes.element,
   backgroundColor: React.PropTypes.string,
 }
@@ -245,6 +246,7 @@ CameraRollPicker.defaultProps = {
   imageMargin: 5,
   assetType: 'Photos',
   backgroundColor: 'white',
+  selected: [],
   callback: function(d) {
     console.log(d);
   },
