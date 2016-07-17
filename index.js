@@ -118,7 +118,7 @@ class CameraRollPicker extends Component {
         <Image
           source={{uri: item.node.image.uri}}
           style={{height: this._imageSize, width: this._imageSize}} >
-          { (this.state.selected.indexOf(item.node.image) >= 0) ? marker : null }
+          { (this._arrayObjectIndexOf(this.state.selected, 'uri', item.node.image.uri) >= 0) ? marker : null }
         </Image>
       </TouchableOpacity>
     );
@@ -156,7 +156,7 @@ class CameraRollPicker extends Component {
     var {maximum, imagesPerRow, callback} = this.props;
 
     var selected = this.state.selected,
-        index = selected.indexOf(image);
+        index = this._arrayObjectIndexOf(selected, 'uri', image.uri);
 
     if (index >= 0) {
       selected.splice(index, 1);
@@ -196,6 +196,10 @@ class CameraRollPicker extends Component {
     }
 
     return result;
+  }
+
+  _arrayObjectIndexOf(array, property, value) {
+    return array.map((o) => { return o[property]; }).indexOf(value);
   }
 
 }
