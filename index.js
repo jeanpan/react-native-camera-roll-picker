@@ -41,7 +41,7 @@ class CameraRollPicker extends Component {
     this.setState({
       selected: nextProps.selected,
     });
-  }  
+  }
 
   fetch() {
     if (!this.state.loadingMore) {
@@ -257,8 +257,9 @@ CameraRollPicker.defaultProps = {
   assetType: 'Photos',
   backgroundColor: 'white',
   selected: [],
-  callback: function(d) {
-    console.log(d);
+  callback: function(selectedImages, currentImage) {
+    console.log(currentImage);
+    console.log(selectedImages);
   },
 }
 

@@ -24,7 +24,7 @@ class Example extends Component {
     };
   }
 
-  getSelectedImages(images) {
+  getSelectedImages(images, current) {
     var num = images.length;
 
     this.setState({
@@ -32,6 +32,7 @@ class Example extends Component {
       selected: images,
     });
 
+    console.log(current);
     console.log(this.state.selected);
   }
 

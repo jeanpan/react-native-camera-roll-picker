@@ -23,7 +23,7 @@ var CameraRollPicker = require('react-native-camera-roll-picker');
 ```
 
 ##Props
-- `callback` : Callback function when images was selected. (is required!)
+- `callback` : Callback function when images was selected. (is required!). Return a selected image array and current selected image. 
 - `groupTypes` : The group where the photos will be fetched, one of 'Album', 'All', 'Event', 'Faces', 'Library', 'PhotoStream' and 'SavedPhotos'. (Default: SavedPhotos)
 - `assetType` : The asset type, one of 'Photos', 'Videos' or 'All'. (Default: Photos)
 - `selected` : Already be selected images array. (Default: [])
