@@ -37,6 +37,12 @@ class CameraRollPicker extends Component {
     this.fetch();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selected: nextProps.selected,
+    });
+  }  
+
   fetch() {
     if (!this.state.loadingMore) {
       this.setState({loadingMore: true}, () => { this._fetch(); });
