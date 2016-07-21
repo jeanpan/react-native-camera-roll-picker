@@ -8,6 +8,6 @@
   "dependencies": {
     "react": "15.2.1",
     "react-native": "^0.29.1",
-    "react-native-camera-roll-picker": "^1.1.5"
+    "react-native-camera-roll-picker": "^1.1.6"
   }
 }
