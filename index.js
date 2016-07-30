@@ -12,8 +12,6 @@ import {
   ActivityIndicator,
 } from 'react-native'
 
-import SGListView from 'react-native-sglistview'
-
 class CameraRollPicker extends Component {
   constructor(props) {
     super(props);
@@ -97,7 +95,7 @@ class CameraRollPicker extends Component {
     return (
       <View
         style={[styles.wrapper, {padding: imageMargin, paddingRight: 0, backgroundColor: backgroundColor},]}>
-        <SGListView
+        <ListView
           style={{flex: 1,}}
           renderFooter={this._renderFooterSpinner.bind(this)}
           onEndReached={this._onEndReached.bind(this)}
