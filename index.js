@@ -28,8 +28,11 @@ class CameraRollPicker extends Component {
 
   componentWillMount() {
     var {width} = Dimensions.get('window');
-    var {imageMargin, imagesPerRow} = this.props;
+    var {imageMargin, imagesPerRow, containerWidth} = this.props;
 
+    if(typeof containerWidth != "undefined") {
+      width = containerWidth;
+    }
     this._imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
 
     this.fetch();
@@ -241,6 +244,7 @@ CameraRollPicker.propTypes = {
   ]),
   imagesPerRow: React.PropTypes.number,
   imageMargin: React.PropTypes.number,
+  containerWidth: React.PropTypes.number,
   callback: React.PropTypes.func,
   selected: React.PropTypes.array,
   selectedMarker: React.PropTypes.element,
