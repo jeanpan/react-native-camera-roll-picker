@@ -23,8 +23,5 @@
   "bugs": {
     "url": "https://github.com/jeanpan/react-native-camera-roll-picker/issues"
   },
-  "dependencies": {
-    "react-native-sglistview": "^0.3.2"
-  },
   "homepage": "https://github.com/jeanpan/react-native-camera-roll-picker#readme"
 }
