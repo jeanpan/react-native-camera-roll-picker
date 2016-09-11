@@ -94,12 +94,16 @@ class CameraRollPicker extends Component {
   }
 
   render() {
-    var {imageMargin, backgroundColor} = this.props;
+    var {scrollRenderAheadDistance, initialListSize, pageSize, removeClippedSubviews, imageMargin, backgroundColor} = this.props;
     return (
       <View
         style={[styles.wrapper, {padding: imageMargin, paddingRight: 0, backgroundColor: backgroundColor},]}>
         <ListView
           style={{flex: 1,}}
+          scrollRenderAheadDistance={scrollRenderAheadDistance}
+          initialListSize={initialListSize}
+          pageSize={pageSize}
+          removeClippedSubviews={removeClippedSubviews}
           renderFooter={this._renderFooterSpinner.bind(this)}
           onEndReached={this._onEndReached.bind(this)}
           dataSource={this.state.dataSource}
@@ -227,6 +231,10 @@ const styles = StyleSheet.create({
 })
 
 CameraRollPicker.propTypes = {
+  scrollRenderAheadDistance: React.PropTypes.number,
+  initialListSize: React.PropTypes.number,
+  pageSize: React.PropTypes.number,
+  removeClippedSubviews: React.PropTypes.bool,
   groupTypes: React.PropTypes.oneOf([
     'Album',
     'All',
@@ -252,6 +260,10 @@ CameraRollPicker.propTypes = {
 }
 
 CameraRollPicker.defaultProps = {
+  scrollRenderAheadDistance: 500,
+  initialListSize: 1,
+  pageSize: 3,
+  removeClippedSubviews: true,
   groupTypes: 'SavedPhotos',
   maximum: 15,
   imagesPerRow: 3,
