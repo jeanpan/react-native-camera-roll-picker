@@ -1,3 +1,5 @@
+[![version](https://img.shields.io/npm/v/react-native-camera-roll-picker.svg)](https://www.npmjs.org/package/react-native-camera-roll-picker) [![npm](https://img.shields.io/npm/dt/react-native-camera-roll-picker.svg)](https://www.npmjs.org/package/react-native-camera-roll-picker)
+
 # react-native-camera-roll-picker
 CameraRoll Picker component for React native
 
@@ -23,7 +25,7 @@ var CameraRollPicker = require('react-native-camera-roll-picker');
 ```
 
 ##Props
-- `callback` : Callback function when images was selected. (is required!). Return a selected image array and current selected image. 
+- `callback` : Callback function when images was selected. (is required!). Return a selected image array and current selected image.
 - `groupTypes` : The group where the photos will be fetched, one of 'Album', 'All', 'Event', 'Faces', 'Library', 'PhotoStream' and 'SavedPhotos'. (Default: SavedPhotos)
 - `assetType` : The asset type, one of 'Photos', 'Videos' or 'All'. (Default: Photos)
 - `selected` : Already be selected images array. (Default: [])
