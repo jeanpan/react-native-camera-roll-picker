@@ -103,6 +103,7 @@ class CameraRollPicker extends Component {
       imageMargin,
       backgroundColor,
       emptyText,
+      emptyTextStyle,
     } = this.props;
 
     var listViewOrEmptyText = dataSource.getRowCount() > 0 ? (
@@ -117,7 +118,7 @@ class CameraRollPicker extends Component {
         dataSource={dataSource}
         renderRow={rowData => this._renderRow(rowData)} />
     ) : (
-      <Text>{emptyText}</Text>
+      <Text style={[{textAlign: 'center'}, emptyTextStyle]}>{emptyText}</Text>
     );
 
     return (
@@ -274,6 +275,7 @@ CameraRollPicker.propTypes = {
   selectedMarker: React.PropTypes.element,
   backgroundColor: React.PropTypes.string,
   emptyText: React.PropTypes.string,
+  emptyTextStyle: Text.propTypes.style,
 }
 
 CameraRollPicker.defaultProps = {
