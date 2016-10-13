@@ -94,16 +94,37 @@ class CameraRollPicker extends Component {
   }
 
   render() {
-    var {imageMargin, backgroundColor} = this.props;
+    var {dataSource} = this.state;
+    var {
+      scrollRenderAheadDistance,
+      initialListSize,
+      pageSize,
+      removeClippedSubviews,
+      imageMargin,
+      backgroundColor,
+      emptyText,
+      emptyTextStyle,
+    } = this.props;
+
+    var listViewOrEmptyText = dataSource.getRowCount() > 0 ? (
+      <ListView
+        style={{flex: 1,}}
+        scrollRenderAheadDistance={scrollRenderAheadDistance}
+        initialListSize={initialListSize}
+        pageSize={pageSize}
+        removeClippedSubviews={removeClippedSubviews}
+        renderFooter={this._renderFooterSpinner.bind(this)}
+        onEndReached={this._onEndReached.bind(this)}
+        dataSource={dataSource}
+        renderRow={rowData => this._renderRow(rowData)} />
+    ) : (
+      <Text style={[{textAlign: 'center'}, emptyTextStyle]}>{emptyText}</Text>
+    );
+
     return (
       <View
         style={[styles.wrapper, {padding: imageMargin, paddingRight: 0, backgroundColor: backgroundColor},]}>
-        <ListView
-          style={{flex: 1,}}
-          renderFooter={this._renderFooterSpinner.bind(this)}
-          onEndReached={this._onEndReached.bind(this)}
-          dataSource={this.state.dataSource}
-          renderRow={rowData => this._renderRow(rowData)} />
+        {listViewOrEmptyText}
       </View>
     );
   }
@@ -227,6 +248,10 @@ const styles = StyleSheet.create({
 })
 
 CameraRollPicker.propTypes = {
+  scrollRenderAheadDistance: React.PropTypes.number,
+  initialListSize: React.PropTypes.number,
+  pageSize: React.PropTypes.number,
+  removeClippedSubviews: React.PropTypes.bool,
   groupTypes: React.PropTypes.oneOf([
     'Album',
     'All',
@@ -249,9 +274,15 @@ CameraRollPicker.propTypes = {
   selected: React.PropTypes.array,
   selectedMarker: React.PropTypes.element,
   backgroundColor: React.PropTypes.string,
+  emptyText: React.PropTypes.string,
+  emptyTextStyle: Text.propTypes.style,
 }
 
 CameraRollPicker.defaultProps = {
+  scrollRenderAheadDistance: 500,
+  initialListSize: 1,
+  pageSize: 3,
+  removeClippedSubviews: true,
   groupTypes: 'SavedPhotos',
   maximum: 15,
   imagesPerRow: 3,
@@ -263,6 +294,7 @@ CameraRollPicker.defaultProps = {
     console.log(currentImage);
     console.log(selectedImages);
   },
+  emptyText: 'No photos.',
 }
 
 export default CameraRollPicker;

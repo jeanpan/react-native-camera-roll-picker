@@ -1,3 +1,5 @@
+[![version](https://img.shields.io/npm/v/react-native-camera-roll-picker.svg)](https://www.npmjs.org/package/react-native-camera-roll-picker) [![npm](https://img.shields.io/npm/dt/react-native-camera-roll-picker.svg)](https://www.npmjs.org/package/react-native-camera-roll-picker)
+
 # react-native-camera-roll-picker
 CameraRoll Picker component for React native
 
@@ -37,6 +39,8 @@ var CameraRollPicker = require('react-native-camera-roll-picker');
 - `containerWidth` : Width of camer roll picker container. (Default: device width)
 - `selectedMarker` : Custom selected image marker component. (Default: checkmark).
 - `backgroundColor` : Set background color. (Default: white).
+- `emptyText`: Text to display instead of a list when there are no photos found. (Default: 'No photos.')
+- `emptyTextStyle`: Styles to apply to the `emptyText`. (Default: `textAlign: 'center'`)
 
 ##Run Example
 ```

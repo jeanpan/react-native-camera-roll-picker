@@ -45,6 +45,10 @@ class Example extends Component {
           </Text>
         </View>
         <CameraRollPicker
+          scrollRenderAheadDistance={500}
+          initialListSize={1}
+          pageSize={3}
+          removeClippedSubviews={true}
           groupTypes='SavedPhotos'
           batchSize={5}
           maximum={5}
