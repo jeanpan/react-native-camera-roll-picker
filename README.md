@@ -35,6 +35,8 @@ var CameraRollPicker = require('react-native-camera-roll-picker');
 - `containerWidth` : Width of camer roll picker container. (Default: device width)
 - `selectedMarker` : Custom selected image marker component. (Default: checkmark).
 - `backgroundColor` : Set background color. (Default: white).
+- `emptyText`: Text to display instead of a list when there are no photos found. (Default: 'No photos.')
+- `emptyTextStyle`: Styles to apply to the `emptyText`. (Default: `textAlign: 'center'`)
 
 ##Run Example
 ```
