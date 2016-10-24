@@ -1,16 +1,14 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {
   CameraRoll,
-  Image,
   Platform,
   StyleSheet,
   View,
   Text,
-  Dimensions,
-  TouchableOpacity,
   ListView,
   ActivityIndicator,
-} from 'react-native'
+} from 'react-native';
+import ImageItem from './ImageItem';
 
 class CameraRollPicker extends Component {
   constructor(props) {
@@ -27,14 +25,6 @@ class CameraRollPicker extends Component {
   }
 
   componentWillMount() {
-    var {width} = Dimensions.get('window');
-    var {imageMargin, imagesPerRow, containerWidth} = this.props;
-
-    if(typeof containerWidth != "undefined") {
-      width = containerWidth;
-    }
-    this._imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
-
     this.fetch();
   }
 
@@ -130,25 +120,28 @@ class CameraRollPicker extends Component {
   }
 
   _renderImage(item) {
-    var {selectedMarker, imageMargin} = this.props;
+    var {selected} = this.state;
+    var {
+      imageMargin,
+      selectedMarker,
+      imagesPerRow,
+      containerWidth
+    } = this.props;
 
-    var marker = selectedMarker ? selectedMarker :
-      <Image
-        style={[styles.marker, {width: 25, height: 25, right: imageMargin + 5},]}
-        source={require('./circle-check.png')}
-      />;
+    var uri = item.node.image.uri;
+    var isSelected = (this._arrayObjectIndexOf(selected, 'uri', uri) >= 0) ? true : false;
 
     return (
-      <TouchableOpacity
-        key={item.node.image.uri}
-        style={{marginBottom: imageMargin, marginRight: imageMargin}}
-        onPress={event => this._selectImage(item.node.image)}>
-        <Image
-          source={{uri: item.node.image.uri}}
-          style={{height: this._imageSize, width: this._imageSize}} >
-          { (this._arrayObjectIndexOf(this.state.selected, 'uri', item.node.image.uri) >= 0) ? marker : null }
-        </Image>
-      </TouchableOpacity>
+      <ImageItem
+        key={uri}
+        item={item}
+        selected={isSelected}
+        imageMargin={imageMargin}
+        selectedMarker={selectedMarker}
+        imagesPerRow={imagesPerRow}
+        containerWidth={containerWidth}
+        onClick={this._selectImage.bind(this)}
+      />
     );
   }
 
