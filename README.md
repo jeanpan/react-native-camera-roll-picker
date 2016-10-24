@@ -15,7 +15,7 @@ $ npm install react-native-camera-roll-picker --save
 
 * Require component
 ```
-var CameraRollPicker = require('react-native-camera-roll-picker');
+import CameraRollPicker from 'react-native-camera-roll-picker';
 ```
 
 ##Basic Usage
@@ -25,7 +25,7 @@ var CameraRollPicker = require('react-native-camera-roll-picker');
 ```
 
 ##Props
-- `callback` : Callback function when images was selected. (is required!). Return a selected image array and current selected image. 
+- `callback` : Callback function when images was selected. (is required!). Return a selected image array and current selected image.
 - `scrollRenderAheadDistance` : "How early to start rendering rows before they come on screen, in pixels." (Default: 500)
 - `initialListSize` : Specifies how many rows we want to render on our first render pass. (Default: 1)
 - `pageSize` : After the initial render where 'initialListSize' is used, ListView looks at the pageSize to determine how many rows to render per frame. (Default: 3)
