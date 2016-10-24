@@ -14,7 +14,7 @@ import {
 
 import CameraRollPicker from 'react-native-camera-roll-picker';
 
-class Example extends Component {
+export default class Example extends Component {
   constructor(props) {
     super(props);
 
@@ -48,10 +48,10 @@ class Example extends Component {
           scrollRenderAheadDistance={500}
           initialListSize={1}
           pageSize={3}
-          removeClippedSubviews={true}
+          removeClippedSubviews={false}
           groupTypes='SavedPhotos'
           batchSize={5}
-          maximum={5}
+          maximum={3}
           selected={this.state.selected}
           assetType='Photos'
           imagesPerRow={3}
