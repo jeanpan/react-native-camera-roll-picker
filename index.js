@@ -174,7 +174,7 @@ class CameraRollPicker extends Component {
   }
 
   _selectImage(image) {
-    var {maximum, imagesPerRow, callback} = this.props;
+    var {maximum, imagesPerRow, callback, selectSingleItem} = this.props;
 
     var selected = this.state.selected,
         index = this._arrayObjectIndexOf(selected, 'uri', image.uri);
@@ -182,8 +182,12 @@ class CameraRollPicker extends Component {
     if (index >= 0) {
       selected.splice(index, 1);
     } else {
-      if (selected.length < maximum) {
-        selected.push(image);
+      if (selectSingleItem) {
+        selected = [image];
+      } else {
+        if (selected.length < maximum) {
+          selected.push(image);
+        }
       }
     }
 
@@ -260,6 +264,7 @@ CameraRollPicker.propTypes = {
     'Videos',
     'All',
   ]),
+  selectSingleItem: React.PropTypes.bool,
   imagesPerRow: React.PropTypes.number,
   imageMargin: React.PropTypes.number,
   containerWidth: React.PropTypes.number,
@@ -280,6 +285,7 @@ CameraRollPicker.defaultProps = {
   maximum: 15,
   imagesPerRow: 3,
   imageMargin: 5,
+  selectSingleItem: false,
   assetType: 'Photos',
   backgroundColor: 'white',
   selected: [],
