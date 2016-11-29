@@ -198,7 +198,7 @@ class CameraRollPicker extends Component {
       ),
     });
 
-    callback(this.state.selected, image);
+    callback(selected, image);
   }
 
   _nEveryRow(data, n) {
