@@ -38,9 +38,15 @@ class CameraRollPicker extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      selected: nextProps.selected,
-    });
+    if (nextProps.selected === this.state.selected) {
+      // Changing configuration props
+      this.refresh();
+    } else {
+      // Only updating selected
+      this.setState({
+        selected: nextProps.selected,
+      });
+    }
   }
 
   fetch() {
