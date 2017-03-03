@@ -94,11 +94,14 @@ class CameraRollPicker extends Component {
       backgroundColor,
       emptyText,
       emptyTextStyle,
+      style,
     } = this.props;
+    
+    style = Object.assign({flex: 1}, style);
 
     var listViewOrEmptyText = dataSource.getRowCount() > 0 ? (
       <ListView
-        style={{flex: 1,}}
+        style={style}
         scrollRenderAheadDistance={scrollRenderAheadDistance}
         initialListSize={initialListSize}
         pageSize={pageSize}
