@@ -5,7 +5,7 @@ CameraRoll Picker component for React native
 
 <a href="https://raw.githubusercontent.com/jeanpan/react-native-camera-roll-picker/master/demo/demo.gif"><img src="https://raw.githubusercontent.com/jeanpan/react-native-camera-roll-picker/master/demo/demo.gif" width="350"></a>
 
-##Add to Project
+## Add to Project
 * Make sure node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj has been imported to project libraries by following the [libraries linking instructions](https://facebook.github.io/react-native/docs/linking-libraries-ios.html).
 
 * Install component through npm
@@ -18,13 +18,13 @@ $ npm install react-native-camera-roll-picker --save
 import CameraRollPicker from 'react-native-camera-roll-picker';
 ```
 
-##Basic Usage
+## Basic Usage
 ```js
 <CameraRollPicker
   callback={this.getSelectedImages} />
 ```
 
-##Props
+## Props
 - `callback` : Callback function when images was selected. (is required!). Return a selected image array and current selected image.
 - `scrollRenderAheadDistance` : "How early to start rendering rows before they come on screen, in pixels." (Default: 500)
 - `initialListSize` : Specifies how many rows we want to render on our first render pass. (Default: 1)
@@ -42,7 +42,7 @@ import CameraRollPicker from 'react-native-camera-roll-picker';
 - `emptyText`: Text to display instead of a list when there are no photos found. (Default: 'No photos.')
 - `emptyTextStyle`: Styles to apply to the `emptyText`. (Default: `textAlign: 'center'`)
 
-##Run Example
+## Run Example
 ```
 $ git clone https://github.com/jeanpan/react-native-camera-roll-picker.git
 $ cd react-native-camera-roll-picker
