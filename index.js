@@ -108,7 +108,8 @@ class CameraRollPicker extends Component {
         dataSource={dataSource}
         renderRow={rowData => this._renderRow(rowData)} />
     ) : (
-      <Text style={[{textAlign: 'center'}, emptyTextStyle]}>{emptyText}</Text>
+      this.props.emptyState ?
+        this.props.emptyState : <Text style={[{textAlign: 'center'}, emptyTextStyle]}>{emptyText}</Text>
     );
 
     return (
@@ -273,6 +274,7 @@ CameraRollPicker.propTypes = {
   backgroundColor: React.PropTypes.string,
   emptyText: React.PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
+  emptyState: React.PropTypes.element,
 }
 
 CameraRollPicker.defaultProps = {
@@ -293,6 +295,7 @@ CameraRollPicker.defaultProps = {
     console.log(selectedImages);
   },
   emptyText: 'No photos.',
+  emptyState: null,
 }
 
 export default CameraRollPicker;
