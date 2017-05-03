@@ -21,6 +21,7 @@ class CameraRollPicker extends Component {
       loadingMore: false,
       noMore: false,
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
+      initialLoading: true,
     };
   }
 
@@ -66,6 +67,7 @@ class CameraRollPicker extends Component {
     var assets = data.edges;
     var newState = {
       loadingMore: false,
+      initialLoading: false,
     };
 
     if (!data.page_info.has_next_page) {
@@ -96,7 +98,7 @@ class CameraRollPicker extends Component {
       emptyTextStyle,
     } = this.props;
 
-    var listViewOrEmptyText = dataSource.getRowCount() > 0 ? (
+    var listViewOrEmptyText = this.state.initialLoading || dataSource.getRowCount() > 0 ? (
       <ListView
         style={{flex: 1,}}
         scrollRenderAheadDistance={scrollRenderAheadDistance}
