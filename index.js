@@ -44,7 +44,7 @@ class CameraRollPicker extends Component {
     var {groupTypes, assetType} = this.props;
 
     var fetchParams = {
-      first: 1000,
+      first: this.props.loadSize,
       groupTypes: groupTypes,
       assetType: assetType,
     };
@@ -273,10 +273,12 @@ CameraRollPicker.propTypes = {
   backgroundColor: React.PropTypes.string,
   emptyText: React.PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
+  loadSize: React.PropTypes.number,
 }
 
 CameraRollPicker.defaultProps = {
   scrollRenderAheadDistance: 500,
+  loadSize: 1000,
   initialListSize: 1,
   pageSize: 3,
   removeClippedSubviews: true,
