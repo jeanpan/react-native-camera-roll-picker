@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
   CameraRoll,
+  Dimensions,
   Platform,
   StyleSheet,
   View,
@@ -119,6 +120,33 @@ class CameraRollPicker extends Component {
     );
   }
 
+  _onLayout(event) {
+    if (event && event.nativeEvent && event.nativeEvent.layout
+      && event.nativeEvent.layout.width !== this.state.screenWidth) {
+      let calculatedImageSize = this._calculateImageSize();
+      let newImages = Array.from(this.state.images);
+      newImages.forEach((image) => image.size = calculatedImageSize);
+      let newDataSource = this.state.dataSource.cloneWithRows(
+        this._nEveryRow(newImages, this.props.imagesPerRow)
+      );
+      this.setState({
+        images: newImages,
+        dataSource: newDataSource,
+        screenWidth: event.nativeEvent.layout.width
+      });
+    }
+  }
+
+  _calculateImageSize() {
+    var { width } = Dimensions.get('window');
+    var {imageMargin, imagesPerRow, containerWidth} = this.props;
+
+    if(typeof containerWidth !== "undefined") {
+      width = containerWidth;
+    }
+    return (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
+}
+
   _renderImage(item) {
     var {selected} = this.state;
     var {
@@ -141,6 +169,7 @@ class CameraRollPicker extends Component {
         imagesPerRow={imagesPerRow}
         containerWidth={containerWidth}
         onClick={this._selectImage.bind(this)}
+        imageSize={item.size}
       />
     );
   }
@@ -154,7 +183,7 @@ class CameraRollPicker extends Component {
     });
 
     return (
-      <View style={styles.row}>
+      <View style={styles.row} onLayout={this._onLayout.bind(this)}>
         {items}
       </View>
     );
