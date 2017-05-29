@@ -41,6 +41,7 @@ import CameraRollPicker from 'react-native-camera-roll-picker';
 - `backgroundColor` : Set background color. (Default: white).
 - `emptyText`: Text to display instead of a list when there are no photos found. (Default: 'No photos.')
 - `emptyTextStyle`: Styles to apply to the `emptyText`. (Default: `textAlign: 'center'`)
+- `loader`: Loader component node. (Default: `<ActivityIndicator />`)
 
 ##Run Example
 ```
