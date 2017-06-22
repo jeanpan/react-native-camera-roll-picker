@@ -11,18 +11,8 @@ class ImageItem extends Component {
     super(props)
   }
 
-  componentWillMount() {
-    var {width} = Dimensions.get('window');
-    var {imageMargin, imagesPerRow, containerWidth} = this.props;
-
-    if(typeof containerWidth != "undefined") {
-      width = containerWidth;
-    }
-    this._imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
-  }
-
   render() {
-    var {item, selected, selectedMarker, imageMargin} = this.props;
+    var {imageSize, item, selected, selectedMarker, imageMargin} = this.props;
 
     var marker = selectedMarker ? selectedMarker :
         <Image
@@ -38,7 +28,7 @@ class ImageItem extends Component {
         onPress={() => this._handleClick(image)}>
         <Image
           source={{uri: image.uri}}
-          style={{height: this._imageSize, width: this._imageSize}} >
+          style={{height: imageSize, width: imageSize}} >
           { (selected) ? marker : null }
         </Image>
       </TouchableOpacity>
@@ -65,6 +55,7 @@ ImageItem.defaultProps = {
 }
 
 ImageItem.propTypes = {
+  imageSize: React.PropTypes.number,
   item: React.PropTypes.object,
   selected: React.PropTypes.bool,
   selectedMarker: React.PropTypes.element,
