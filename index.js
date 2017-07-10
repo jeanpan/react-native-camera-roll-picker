@@ -8,6 +8,8 @@ import {
   ListView,
   ActivityIndicator,
 } from 'react-native';
+import PropTypes from 'prop-types';
+
 import ImageItem from './ImageItem';
 
 class CameraRollPicker extends Component {
@@ -244,11 +246,11 @@ const styles = StyleSheet.create({
 })
 
 CameraRollPicker.propTypes = {
-  scrollRenderAheadDistance: React.PropTypes.number,
-  initialListSize: React.PropTypes.number,
-  pageSize: React.PropTypes.number,
-  removeClippedSubviews: React.PropTypes.bool,
-  groupTypes: React.PropTypes.oneOf([
+  scrollRenderAheadDistance: PropTypes.number,
+  initialListSize: PropTypes.number,
+  pageSize: PropTypes.number,
+  removeClippedSubviews: PropTypes.bool,
+  groupTypes: PropTypes.oneOf([
     'Album',
     'All',
     'Event',
@@ -257,21 +259,21 @@ CameraRollPicker.propTypes = {
     'PhotoStream',
     'SavedPhotos',
   ]),
-  maximum: React.PropTypes.number,
-  assetType: React.PropTypes.oneOf([
+  maximum: PropTypes.number,
+  assetType: PropTypes.oneOf([
     'Photos',
     'Videos',
     'All',
   ]),
-  selectSingleItem: React.PropTypes.bool,
-  imagesPerRow: React.PropTypes.number,
-  imageMargin: React.PropTypes.number,
-  containerWidth: React.PropTypes.number,
-  callback: React.PropTypes.func,
-  selected: React.PropTypes.array,
-  selectedMarker: React.PropTypes.element,
-  backgroundColor: React.PropTypes.string,
-  emptyText: React.PropTypes.string,
+  selectSingleItem: PropTypes.bool,
+  imagesPerRow: PropTypes.number,
+  imageMargin: PropTypes.number,
+  containerWidth: PropTypes.number,
+  callback: PropTypes.func,
+  selected: PropTypes.array,
+  selectedMarker: PropTypes.element,
+  backgroundColor: PropTypes.string,
+  emptyText: PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
 }
 
