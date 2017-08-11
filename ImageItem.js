@@ -5,6 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 class ImageItem extends Component {
   constructor(props){
@@ -65,12 +66,12 @@ ImageItem.defaultProps = {
 }
 
 ImageItem.propTypes = {
-  item: React.PropTypes.object,
-  selected: React.PropTypes.bool,
-  selectedMarker: React.PropTypes.element,
-  imageMargin: React.PropTypes.number,
-  imagesPerRow: React.PropTypes.number,
-  onClick: React.PropTypes.func,
+  item: PropTypes.object,
+  selected: PropTypes.bool,
+  selectedMarker: PropTypes.element,
+  imageMargin: PropTypes.number,
+  imagesPerRow: PropTypes.number,
+  onClick: PropTypes.func,
 }
 
 export default ImageItem;
