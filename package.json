@@ -1,6 +1,6 @@
 {
   "name": "react-native-camera-roll-picker",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "A React Native component providing images selection from camera roll ",
   "main": "index.js",
   "scripts": {
