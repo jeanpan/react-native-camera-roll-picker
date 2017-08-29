@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
   Image,
+  ImageBackground,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -37,11 +38,11 @@ class ImageItem extends Component {
       <TouchableOpacity
         style={{marginBottom: imageMargin, marginRight: imageMargin}}
         onPress={() => this._handleClick(image)}>
-        <Image
+        <ImageBackground
           source={{uri: image.uri}}
           style={{height: this._imageSize, width: this._imageSize}} >
           { (selected) ? marker : null }
-        </Image>
+        </ImageBackground>
       </TouchableOpacity>
     );
   }
