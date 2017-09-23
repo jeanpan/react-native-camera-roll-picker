@@ -291,7 +291,7 @@ CameraRollPicker.propTypes = {
   backgroundColor: PropTypes.string,
   emptyText: PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
-  loader: React.PropTypes.node,
+  loader: PropTypes.node,
 }
 
 CameraRollPicker.defaultProps = {
