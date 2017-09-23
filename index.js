@@ -20,6 +20,7 @@ class CameraRollPicker extends Component {
       images: [],
       selected: this.props.selected,
       lastCursor: null,
+      initialLoading: true,
       loadingMore: false,
       noMore: false,
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
@@ -68,6 +69,7 @@ class CameraRollPicker extends Component {
     var assets = data.edges;
     var newState = {
       loadingMore: false,
+      initialLoading: false,
     };
 
     if (!data.page_info.has_next_page) {
@@ -96,7 +98,16 @@ class CameraRollPicker extends Component {
       backgroundColor,
       emptyText,
       emptyTextStyle,
+      loader,
     } = this.props;
+
+    if (this.state.initialLoading) {
+      return (
+        <View style={[styles.loader, {backgroundColor}]}>
+          { loader || <ActivityIndicator /> }
+        </View>
+      );
+    }
 
     var listViewOrEmptyText = dataSource.getRowCount() > 0 ? (
       <ListView
@@ -232,7 +243,12 @@ class CameraRollPicker extends Component {
 
 const styles = StyleSheet.create({
   wrapper:{
-    flex: 1,
+    flexGrow: 1,
+  },
+  loader: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   row:{
     flexDirection: 'row',
@@ -275,6 +291,7 @@ CameraRollPicker.propTypes = {
   backgroundColor: PropTypes.string,
   emptyText: PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
+  loader: React.PropTypes.node,
 }
 
 CameraRollPicker.defaultProps = {
