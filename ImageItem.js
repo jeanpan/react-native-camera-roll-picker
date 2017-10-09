@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   StyleSheet,
@@ -8,40 +8,39 @@ import {
 import PropTypes from 'prop-types';
 
 class ImageItem extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
   componentWillMount() {
-    var {width} = Dimensions.get('window');
-    var {imageMargin, imagesPerRow, containerWidth} = this.props;
+    var { width } = Dimensions.get('window');
+    var { imageMargin, imagesPerRow, containerWidth } = this.props;
 
-    if(typeof containerWidth != "undefined") {
+    if (typeof containerWidth != "undefined") {
       width = containerWidth;
     }
     this._imageSize = (width - (imagesPerRow + 1) * imageMargin) / imagesPerRow;
   }
 
   render() {
-    var {item, selected, selectedMarker, imageMargin} = this.props;
+    var { item, selected, selectedMarker, imageMargin } = this.props;
 
     var marker = selectedMarker ? selectedMarker :
-        <Image
-          style={[styles.marker, {width: 25, height: 25}]}
-          source={require('./circle-check.png')}
-          />;
+      <Image
+        style={[styles.marker, { width: 25, height: 25 }]}
+        source={require('./circle-check.png')}
+      />;
 
     var image = item.node.image;
 
     return (
       <TouchableOpacity
-        style={{marginBottom: imageMargin, marginRight: imageMargin}}
+        style={{ marginBottom: imageMargin, marginRight: imageMargin }}
         onPress={() => this._handleClick(image)}>
         <Image
-          source={{uri: image.uri}}
-          style={{height: this._imageSize, width: this._imageSize}} >
-          { (selected) ? marker : null }
-        </Image>
+          source={{ uri: image.uri }}
+          style={{ height: this._imageSize, width: this._imageSize }} />
+        {(selected) ? marker : null}
       </TouchableOpacity>
     );
   }
