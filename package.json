@@ -19,7 +19,7 @@
     "picker"
   ],
   "author": "jeanpan",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jeanpan/react-native-camera-roll-picker/issues"
   },
