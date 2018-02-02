@@ -47,10 +47,6 @@ export default class Example extends Component {
           </Text>
         </View>
         <CameraRollPicker
-          scrollRenderAheadDistance={500}
-          initialListSize={1}
-          pageSize={3}
-          removeClippedSubviews={false}
           groupTypes='SavedPhotos'
           maximum={3}
           selected={this.state.selected}

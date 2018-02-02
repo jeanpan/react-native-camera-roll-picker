@@ -47,7 +47,6 @@ export default class Example extends Component {
           </Text>
         </View>
         <CameraRollPicker
-          initialNumToRender={1}
           groupTypes='SavedPhotos'
           maximum={3}
           selected={this.state.selected}
