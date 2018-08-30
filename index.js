@@ -17,7 +17,7 @@ class CameraRollPicker extends Component {
     super(props);
 
     this.state = {
-      images: [],
+      images: this.props.initialImages,
       selected: this.props.selected,
       lastCursor: null,
       initialLoading: true,
@@ -292,6 +292,7 @@ CameraRollPicker.propTypes = {
   emptyText: PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
   loader: PropTypes.node,
+  initialImages: PropTypes.array
 }
 
 CameraRollPicker.defaultProps = {
@@ -312,6 +313,7 @@ CameraRollPicker.defaultProps = {
     console.log(selectedImages);
   },
   emptyText: 'No photos.',
+  initialImages: []
 }
 
 export default CameraRollPicker;
