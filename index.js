@@ -189,8 +189,8 @@ class CameraRollPicker extends Component {
   _selectImage(image) {
     var {maximum, imagesPerRow, callback, selectSingleItem} = this.props;
 
-    var selected = this.state.selected,
-        index = this._arrayObjectIndexOf(selected, 'uri', image.uri);
+    var selected = [...this.state.selected];
+    var index = this._arrayObjectIndexOf(selected, 'uri', image.uri);
 
     if (index >= 0) {
       selected.splice(index, 1);
@@ -204,7 +204,7 @@ class CameraRollPicker extends Component {
     }
 
     this.setState({
-      selected: selected,
+      selected,
       dataSource: this.state.dataSource.cloneWithRows(
         this._nEveryRow(this.state.images, imagesPerRow)
       ),
