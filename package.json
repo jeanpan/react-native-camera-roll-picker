@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/jeanpan/react-native-camera-roll-picker/issues"
   },
-  "homepage": "https://github.com/jeanpan/react-native-camera-roll-picker#readme"
+  "homepage": "https://github.com/jeanpan/react-native-camera-roll-picker#readme",
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  }
 }

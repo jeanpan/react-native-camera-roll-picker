@@ -22,6 +22,8 @@ export default class Example extends Component {
       num: 0,
       selected: [],
     };
+
+    this.getSelectedImages = this.getSelectedImages.bind(this);
   }
 
   getSelectedImages(images, current) {
@@ -45,18 +47,13 @@ export default class Example extends Component {
           </Text>
         </View>
         <CameraRollPicker
-          scrollRenderAheadDistance={500}
-          initialListSize={1}
-          pageSize={3}
-          removeClippedSubviews={false}
           groupTypes='SavedPhotos'
-          batchSize={5}
           maximum={3}
           selected={this.state.selected}
           assetType='Photos'
           imagesPerRow={3}
           imageMargin={5}
-          callback={this.getSelectedImages.bind(this)} />
+          callback={this.getSelectedImages} />
       </View>
     );
   }
