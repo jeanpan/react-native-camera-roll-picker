@@ -7,7 +7,8 @@
     "url": "https://github.com/jeanpan/react-native-camera-roll-picker/issues"
   },
   "dependencies": {
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "@react-native-community/cameraroll": "1.2.1"
   },
   "homepage": "https://github.com/jeanpan/react-native-camera-roll-picker#readme",
   "keywords": [
