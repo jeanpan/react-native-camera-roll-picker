@@ -91,7 +91,6 @@ class CameraRollPicker extends Component {
     const newState = {
       loadingMore: false,
       initialLoading: false,
-      images: []
     };
 
     if (!data.page_info.has_next_page) {
@@ -103,7 +102,7 @@ class CameraRollPicker extends Component {
       newState.images = this.state.images.concat(assets);
       newState.data = nEveryRow(newState.images, this.props.imagesPerRow);
     }
-    console.log("newState", newState)
+
     this.setState(newState);
   }
 
@@ -170,8 +169,8 @@ class CameraRollPicker extends Component {
       imagesPerRow,
       containerWidth,
     } = this.props;
+
     const { uri } = item.node.image;
-    //const { locInfo } = item.node.location;
     const isSelected = (arrayObjectIndexOf(selected, 'uri', uri) >= 0);
 
     return (
@@ -192,7 +191,7 @@ class CameraRollPicker extends Component {
     const isSelected = item.map((imageItem) => {
       if (!imageItem) return false;
       const { uri } = imageItem.node.image;
-      return(arrayObjectIndexOf(selected, 'uri', uri) >= 0);
+      return arrayObjectIndexOf(this.state.selected, 'uri', uri) >= 0;
     });
     return (<Row
       rowData={item}
