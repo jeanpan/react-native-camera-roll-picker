@@ -174,7 +174,9 @@ class CameraRollPicker extends Component {
     } = this.props;
 
     const { uri } = item.node.image;
-    const isSelected = (arrayObjectIndexOf(selected, 'uri', uri) >= 0);
+    const { locInfo } = item.node.location;
+    const isSelected = (arrayObjectIndexOf(selected, 'locInfo, uri', uri,locInfo) >= 0);
+    console.log("isSelected", isSelected)
 
     return (
       <ImageItem
@@ -194,7 +196,9 @@ class CameraRollPicker extends Component {
     const isSelected = item.map((imageItem) => {
       if (!imageItem) return false;
       const { uri } = imageItem.node.image;
-      return arrayObjectIndexOf(this.state.selected, 'uri', uri) >= 0;
+      const { locInfo } = item.node.location;
+      console.log("locInfo", locInfo)
+      return(arrayObjectIndexOf(selected, 'locInfo, uri', uri,locInfo) >= 0);
     });
     return (<Row
       rowData={item}
