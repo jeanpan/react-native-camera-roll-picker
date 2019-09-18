@@ -92,6 +92,7 @@ class CameraRollPicker extends Component {
     const newState = {
       loadingMore: false,
       initialLoading: false,
+      images: []
     };
 
     if (!data.page_info.has_next_page) {
@@ -103,7 +104,7 @@ class CameraRollPicker extends Component {
       newState.images = this.state.images.concat(assets);
       newState.data = nEveryRow(newState.images, this.props.imagesPerRow);
     }
-
+    console.log("newState", newState)
     this.setState(newState);
   }
 
