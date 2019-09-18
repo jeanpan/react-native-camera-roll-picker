@@ -87,7 +87,6 @@ class CameraRollPicker extends Component {
   }
 
   appendImages(data) {
-    console.log("data", data)
     const assets = data.edges;
     const newState = {
       loadingMore: false,
@@ -193,8 +192,6 @@ class CameraRollPicker extends Component {
     const isSelected = item.map((imageItem) => {
       if (!imageItem) return false;
       const { uri } = imageItem.node.image;
-      // const { locInfo } = item.node.location;
-      // console.log("locInfo", locInfo)
       return(arrayObjectIndexOf(selected, 'uri', uri) >= 0);
     });
     return (<Row
