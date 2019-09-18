@@ -87,6 +87,7 @@ class CameraRollPicker extends Component {
   }
 
   appendImages(data) {
+    console.log("data", data)
     const assets = data.edges;
     const newState = {
       loadingMore: false,
