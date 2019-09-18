@@ -142,7 +142,6 @@ class CameraRollPicker extends Component {
     } = this.props;
 
     const { selected } = this.state;
-    console.log("selected", selected)
     const index = arrayObjectIndexOf(selected, 'uri', image.uri);
 
     if (index >= 0) {
