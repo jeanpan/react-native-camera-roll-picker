@@ -43,12 +43,12 @@ class ImageItem extends Component {
       source={checkIcon}
     />);
 
-    const { image } = item.node;
+    const { image, location, timestamp } = item.node;
 
     return (
       <TouchableOpacity
         style={{ marginBottom: imageMargin, marginRight: imageMargin }}
-        onPress={() => this.handleClick(image)}
+        onPress={() => this.handleClick({ ...image, timestamp, location })}
       >
         <Image
           source={{ uri: image.uri }}
