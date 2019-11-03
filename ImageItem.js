@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Image,
   StyleSheet,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ImageItem extends Component {
+class ImageItem extends PureComponent {
   componentWillMount() {
     let { width } = Dimensions.get('window');
     const { imageMargin, imagesPerRow, containerWidth } = this.props;
