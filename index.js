@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import CameraRoll from "@react-native-community/cameraroll";
 import {
-  CameraRoll,
   Platform,
   StyleSheet,
   View,
