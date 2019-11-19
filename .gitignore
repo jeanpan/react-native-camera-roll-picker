@@ -16,7 +16,7 @@
 *.gz
 *.iso
 *.jar
-!Example/android/gradle/wrapper/gradle-wrapper.jar
+!ExampleOld/android/gradle/wrapper/gradle-wrapper.jar
 *.rar
 *.tar
 *.zip

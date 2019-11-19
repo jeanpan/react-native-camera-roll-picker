@@ -14,7 +14,7 @@ import {
 
 import CameraRollPicker from 'react-native-camera-roll-picker';
 
-export default class Example extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -84,5 +84,3 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
-
-AppRegistry.registerComponent('Example', () => Example);
