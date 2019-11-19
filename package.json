@@ -1,13 +1,16 @@
 {
   "name": "react-native-camera-roll-picker",
   "description": "A React Native component providing images selection from camera roll ",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "author": "jeanpan",
   "bugs": {
     "url": "https://github.com/jeanpan/react-native-camera-roll-picker/issues"
   },
   "dependencies": {
     "prop-types": "^15.6.0"
+  },
+  "devDependencies": {
+    "@react-native-community/cameraroll": "^1.3.0"
   },
   "homepage": "https://github.com/jeanpan/react-native-camera-roll-picker#readme",
   "keywords": [

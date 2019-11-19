@@ -10,10 +10,14 @@ Requires `react-native >=0.43.0`
 
 
 ## Add to Project
-* Make sure node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj has been imported to project libraries by following the [libraries linking instructions](https://facebook.github.io/react-native/docs/linking-libraries-ios.html). Don't forget to link the `libRCTCamera.a` into `Link Binary with Binaries` on your target's Build Phases.
 * Install component through npm
 ```
 $ npm install react-native-camera-roll-picker --save
+```
+
+* Install CameraRoll from @react-native-community
+```
+$ npm install @react-native-community/cameraroll
 ```
 
 * Require component
