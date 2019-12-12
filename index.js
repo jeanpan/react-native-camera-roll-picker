@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  CameraRoll,
   Platform,
   StyleSheet,
   View,
@@ -8,6 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
+import CameraRoll from "@react-native-community/cameraroll";
 import PropTypes from 'prop-types';
 import Row from './Row';
 
