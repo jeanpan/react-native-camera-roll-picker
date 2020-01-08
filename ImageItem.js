@@ -44,6 +44,8 @@ class ImageItem extends Component {
     />);
 
     const { image } = item.node;
+    image.location = item.node.location;
+    image.timestamp = item.node.timestamp;
 
     return (
       <TouchableOpacity
