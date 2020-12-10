@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
+  FlatList,
+  PermissionsAndroid,
   Platform,
   StyleSheet,
-  View,
   Text,
-  FlatList,
-  ActivityIndicator,
+  View,
 } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
 import PropTypes from 'prop-types';
@@ -70,7 +71,11 @@ class CameraRollPicker extends Component {
     this.renderImage = this.renderImage.bind(this);
   }
 
-  componentWillMount() {
+  async componentWillMount() {
+    if (Platform.OS === "android" && !(await this.hasAndroidPermission())) {
+      return;
+    }
+
     this.fetch();
   }
 
@@ -78,6 +83,22 @@ class CameraRollPicker extends Component {
     this.setState({
       selected: nextProps.selected,
     });
+  }
+
+  // Ensure we have the correct permissions read external storage on Android (required for Android 10+).
+  // Pulled straight from cameraroll README.
+  // See https://github.com/react-native-cameraroll/react-native-cameraroll#permissions.
+  async hasAndroidPermission() {
+    console.log( "Hello there love!" );
+    const permission = PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
+
+    const hasPermission = await PermissionsAndroid.check(permission);
+    if (hasPermission) {
+      return true;
+    }
+
+    const status = await PermissionsAndroid.request(permission);
+    return status === 'granted';
   }
 
   onEndReached() {
