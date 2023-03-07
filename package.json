@@ -10,7 +10,7 @@
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
-    "@react-native-community/cameraroll": "^1.3.0"
+    "@react-native-camera-roll/camera-roll": "^5.2.4"
   },
   "homepage": "https://github.com/jeanpan/react-native-camera-roll-picker#readme",
   "keywords": [

@@ -7,7 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import CameraRoll from "@react-native-community/cameraroll";
+import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 import PropTypes from 'prop-types';
 import Row from './Row';
 
