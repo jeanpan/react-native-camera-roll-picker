@@ -8,6 +8,7 @@ import {
 import PropTypes from 'prop-types';
 
 const checkIcon = require('./circle-check.png');
+const videoIcon = require('./videocam.png');
 
 const styles = StyleSheet.create({
   marker: {
@@ -15,6 +16,14 @@ const styles = StyleSheet.create({
     top: 5,
     right: 5,
     backgroundColor: 'transparent',
+  },
+  videoMarker: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    backgroundColor: 'transparent',
+    width: 50,
+    height: 30
   },
 });
 
@@ -38,6 +47,10 @@ class ImageItem extends Component {
       item, selected, selectedMarker, imageMargin,
     } = this.props;
 
+    let videoMarker;
+    if ( item.node.type.startsWith( "video" ) )
+      videoMarker = <Image style={styles.videoMarker} source={videoIcon} accessibilityLabel="videoMarker" />;
+
     const marker = selectedMarker || (<Image
       style={[styles.marker, { width: 25, height: 25 }]}
       source={checkIcon}
@@ -54,6 +67,7 @@ class ImageItem extends Component {
           source={{ uri: image.uri }}
           style={{ height: this.imageSize, width: this.imageSize }}
         />
+        {videoMarker}
         {(selected) ? marker : null}
       </TouchableOpacity>
     );
